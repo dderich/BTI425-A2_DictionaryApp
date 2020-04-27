@@ -1,0 +1,64 @@
+<div *ngIf="engTerm" class="container">
+    <h3>Create a new translation for {{ engTerm.wordEnglish }}</h3>
+    <p>Enter data, and click/tap the Save button</p>
+    <form name="f" (ngSubmit)='newTermSave(f)' #f='ngForm'>
+        <div class="form-group">
+            <label class="control-label" for="langChosen">Language:</label><br>
+            <select class="selectpicker" name="langChosen" [(ngModel)]="langChosen" required>
+                <option *ngFor="let l of languages" [value]="l.code">
+                    {{ l.name }}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="authorName">Author name:</label>
+            <input class="form-control" type="text" id="authorName" name="authorName"
+                [(ngModel)]="newNonEnglishTerm.authorName" required minlength="5" maxlength="30" #authorName="ngModel">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="wordNonEnglish">Term or word:</label>
+            <input class="form-control" type="text" id="wordNonEnglish" name="wordNonEnglish"
+                [(ngModel)]="newNonEnglishTerm.wordNonEnglish" required>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="fieldOfStudy">Field Of Study:</label>
+            <input class="form-control" type="text" id="fieldOfStudy" name="fieldOfStudy"
+                [(ngModel)]="newNonEnglishTerm.fieldOfStudy" placeholder="e.g. Computer programming">
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="wordExpanded">Expansion, if term or word (above) is an acronym:</label>
+            <input class="form-control" type="text" id="wordExpanded" name="wordExpanded"
+                [(ngModel)]="newNonEnglishTerm.wordExpanded">
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="definition">Definition:</label>
+            <textarea class="form-control" form="f" id="definition" name="definition"
+                [(ngModel)]="newNonEnglishTerm.definitions[0].definition" required minlength="10">
+                </textarea>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="linkAuthoritative">Link (URL), authoritative:</label>
+            <input class="form-control" type="url" id="linkAuthoritative" name="linkAuthoritative"
+                [(ngModel)]="newNonEnglishTerm.linkAuthoritative">
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="linkWikipedia">Link (URL) on Wikipedia:</label>
+            <input class="form-control" type="url" id="linkWikipedia" name="linkWikipedia"
+                [(ngModel)]="newNonEnglishTerm.linkWikipedia">
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="linkYouTube">Link (URL) on YouTube:</label>
+            <input class="form-control" type="url" id="linkYouTube" name="linkYouTube"
+                [(ngModel)]="newNonEnglishTerm.linkYouTube">
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="!f.form.valid">Save</button>&nbsp;
+    </form>
+    <a routerLink="/englishTerm/{{engTerm._id}}" class="btn btn-default">Back to English Term</a>
+</div>

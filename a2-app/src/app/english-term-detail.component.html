@@ -1,0 +1,74 @@
+<h2 *ngIf="engTerm" align="center"> English term detail - {{ engTerm.wordEnglish }}</h2>
+<div class="container" *ngIf="engTerm">
+    <h4 *ngIf="engTerm" align="center"><strong>Definitions({{engTerm.definitions.length}})</strong></h4>
+    <dl class="dl-horizontal">
+        <!-- panel panel-body -->
+        <a routerLink="/addEnglishDefinition/{{ objID }}"><button type="button" class="btn btn-primary"> Add new English
+                Definition</button></a> <!-- add new definition-->
+        <div *ngFor="let d of engTerm.definitions; let i = index">
+            <h5><strong>Definition {{ i + 1 }}</strong> </h5>
+            <dt>Author</dt>
+            <dd>{{ d.authorName }}</dd>
+            <br />
+            <dt>Date Created</dt>
+            <dd>{{ d.dateCreated }}</dd>
+            <br />
+            <dt>Defintion</dt>
+            <dd>{{ d.definition }}</dd>
+            <br />
+            <dt>Likes</dt>
+            <dd><button type="button" class="btn btn-success" (click)="likeClick(d)">Like
+                    <strong>{{d.likes}}</strong></button>
+            </dd>
+            <hr>
+        </div>
+        <h5><strong>English Term Details</strong></h5>
+        <dt *ngIf="engTerm.wordExpanded">Expanded Word</dt>
+        <dd *ngIf="engTerm.wordExpanded">{{ engTerm.wordExpanded}}</dd>
+        <br *ngIf="engTerm.wordExpanded" />
+        <dt *ngIf="engTerm.fieldOfStudy">Field of Study</dt>
+        <dd *ngIf="engTerm.fieldOfStudy">{{ engTerm.fieldOfStudy }}</dd>
+        <br *ngIf="engTerm.fieldOfStudy" />
+        <dt>Author name</dt>
+        <dd>{{ engTerm.authorName }}</dd>
+        <br />
+        <dt>Dates</dt>
+        <dd>Created {{ engTerm.dateCreated }}</dd>
+        <dd>Revised {{ engTerm.dateRevised }}</dd>
+        <br />
+
+        <dt>Translations</dt>
+        <dd>
+            <a routerLink="/addNonEnglishTerm/{{ engTerm._id }}"><button type="button" class="btn btn-primary">Add
+                    translation</button></a>
+            <div *ngFor="let t of translations; let i = index">
+                <a *ngFor="let l of languages" routerLink="/nonEnglishTerm/{{ t._id }}">
+                    <button *ngIf="l.code == t.languageCode" id="trans" class="btn btn-default">
+                        <style>
+                            #trans {
+                                font-style: italic;
+                            }
+                        </style>{{ l.name }}
+                    </button>
+                </a>
+            </div>
+        </dd>
+        <br />
+        <dt *ngIf="engTerm.linkAuthoritative || engTerm.linkWikipedia || engTerm.linkYouTube">Links</dt>
+        <dd>
+            <a *ngIf="engTerm.linkAuthoritative" href="{{engTerm.linkAuthoritative}}"><button
+                    class="btn btn-default">Authoritative</button></a>
+            <a *ngIf="engTerm.linkWikipedia" href="{{ engTerm.linkWikipedia }}"><button
+                    class="btn btn-default">Wikipedia</button></a>
+            <a *ngIf="engTerm.linkYouTube" href="{{ engTerm.linkYouTube }}"><button
+                    class="btn btn-default">YouTube</button></a>
+        </dd>
+        <br />
+        <dt>Was this helpful?</dt>
+        <dd><button type="button" class="btn btn-success" (click)="helpYesClick(engTerm._id)">Yes
+                <strong>{{ engTerm.helpYes }}</strong></button>
+            <button type="button" class="btn btn-success" (click)="helpNoClick(engTerm._id)">No
+                <strong>{{ engTerm.helpNo }}</strong></button></dd>
+    </dl>
+</div>
+<a class="btn btn-default" routerLink="/home">Back To List</a>

@@ -1,0 +1,60 @@
+<div class="container">
+    <h3>Create a new new English term</h3>
+    <p>Enter data, and click/tap the Save button</p>
+    <form name="f" (ngSubmit)='termSave(f)' #f='ngForm'>
+        <div class="form-group">
+            <label class="control-label" for="authorName">Author name:</label>
+            <input class="form-control" type="text" id="authorName" name="authorName"
+                [(ngModel)]="newEnglishTerm.authorName" required minlength="5" maxlength="30" #authorName="ngModel">
+
+            <!-- Validation error area -->
+            <div *ngIf='authorName.errors?.minlength' class='alert alert-danger'>Name must be 5 to 30 characters
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="wordEnglish">Term or word in English:</label>
+            <input class="form-control" type="text" id="wordEnglish" name="wordEnglish"
+                [(ngModel)]="newEnglishTerm.wordEnglish" required>              
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="wordExpanded">Expansion, if term or word (above) is an acronym:</label>
+            <input class="form-control" type="text" id="wordExpanded" name="wordExpanded"
+                [(ngModel)]="newEnglishTerm.wordExpanded">
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="definition">Definition:</label>
+            <textarea class="form-control" form="f" id="definition" name="definition"
+                [(ngModel)]="newEnglishTerm.definitions[0].definition" required minlength="10">
+                </textarea>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="linkAuthoritative">Link (URL), authoritative:</label>
+            <input class="form-control" type="text" id="linkAuthoritative" name="linkAuthoritative"
+                [(ngModel)]="newEnglishTerm.linkAuthoritative">
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="linkWikipedia">Link (URL) on Wikipedia:</label>
+            <input class="form-control" type="text" id="linkWikipedia" name="linkWikipedia"
+                [(ngModel)]="newEnglishTerm.linkWikipedia">
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="linkYouTube">Link (URL) on YouTube:</label>
+            <input class="form-control" type="text" id="linkYouTube" name="linkYouTube"
+                [(ngModel)]="newEnglishTerm.linkYouTube">
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="fieldOfStudy">Field Of Study:</label>
+            <input class="form-control" type="text" id="fieldOfStudy" name="fieldOfStudy"
+                [(ngModel)]="newEnglishTerm.fieldOfStudy">
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="!f.form.valid">Save</button>&nbsp;
+    </form>
+    <a routerLink="/home" class="btn btn-default">Back to list</a>
+</div>

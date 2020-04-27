@@ -1,0 +1,35 @@
+<h1 align="center"> List of All English Terms</h1>
+<div>
+  <a class="navbar-brand" routerLink="/addEnglishTerm"><button type="button" class="btn btn-primary">Add English
+      Term</button></a>
+</div>
+<div class="form-group col-lg-2">
+  <input class="form-control" type="text" [(ngModel)]="searchText" (ngModelChange)="doSearch()"
+    placeholder="search by english term">
+</div>
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>English Term</th>
+        <th>Author</th>
+        <th>Definition</th>
+        <th>Field of Study</th>
+      </tr>
+    </thead>
+    <td *ngIf='!terms'>(waiting for data...)</td>
+    <tbody>
+      <tr *ngFor='let t of terms'>
+        <td>{{ t.wordEnglish }}</td>
+        <td>{{ t.authorName }}</td>
+        <td *ngIf="t.definitions">{{ t.definitions[0].definition }}
+          <li *ngIf='t.definitions.length > 1'><i>{{ t.definitions.length - 1 }} other definitions(s)</i></li>
+        </td>
+        <td>{{ t.fieldOfStudy }}</td>
+        <td>
+          <a class="btn btn-default" routerLink="/englishTerm/{{t._id}}">Details</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,57 @@
+<h2 *ngIf="nonTerm" align="center">Non-English term detail - {{ nonTerm.wordNonEnglish }}</h2>
+<h2 *ngIf="nonTerm && languages" align="center">({{languageName}} for <i>{{ nonTerm.wordEnglish}}</i>)</h2>
+<div class="container">
+    <h4 align="center">Definition(s)</h4>
+    <dl *ngIf="nonTerm" class="dl-horizontal">
+
+        <div *ngFor="let l of languages">
+        <a *ngIf="l.code == nonTerm.languageCode" routerLink="/addNonEnglishDefinition/{{nonTerm._id}}"><button type="button" class="btn btn-primary"> Add new {{ l.name }}
+                Definition</button></a>
+        </div>
+        <div *ngFor="let d of nonTerm.definitions; let i = index">
+            <h5><strong>Definition {{ i + 1 }}</strong> </h5>
+            <dt>Author</dt>
+            <dd>{{ d.authorName }}</dd>
+            <br />
+            <dt>Date Created</dt>
+            <dd>{{ d.dateCreated }}</dd>
+            <br />
+            <dt>Defintion</dt>
+            <dd lang="{{ nonTerm.languageCode }}">{{ d.definition }}</dd>
+            <br />
+            <dt>Likes</dt>
+            <dd><button type="button" class="btn btn-success" (click)="likeClick(d)">Like
+                    <strong>{{d.likes}}</strong></button>
+            </dd>
+            <hr>
+        </div>
+        <h5><strong>Non-English Term Details</strong></h5>      
+        <dt *ngIf="nonTerm.fieldOfStudy">Field of Study</dt>
+        <dd>{{nonTerm.fieldOfStudy}}</dd>
+        <br />
+        <dt>Author name</dt>
+        <dd> {{ nonTerm.authorName }}</dd>
+        <br />
+        <dt>Dates</dt>
+        <dd>Created {{ nonTerm.dateCreated }}</dd>
+        <dd>Revised {{ nonTerm.dateRevised }}</dd>
+        <br />
+
+        <dt *ngIf="nonTerm.linkAuthoritative || nonTerm.linkWikipedia || nonTerm.linkYouTube">Links</dt>
+        <dd>
+            <a *ngIf="nonTerm.linkAuthoritative" href="{{nonTerm.linkAuthoritative}}"><button
+                    class="btn btn-default">Authoritative</button></a>
+            <a *ngIf="nonTerm.linkWikipedia" href="{{ nonTerm.linkWikipedia }}"><button
+                    class="btn btn-default">Wikipedia</button></a>
+            <a *ngIf="nonTerm.linkYouTube" href="{{ nonTerm.linkYouTube }}"><button
+                    class="btn btn-default">YouTube</button></a>
+        </dd>
+        <br />
+        <dt>Was this helpful?</dt>
+        <dd><button type="button" class="btn btn-success" (click)="helpYesClick(nonTerm._id)">Yes
+                <strong>{{ nonTerm.helpYes }}</strong></button>
+            <button type="button" class="btn btn-success" (click)="helpNoClick(nonTerm._id)">No
+                <strong>{{ nonTerm.helpNo }}</strong></button></dd>
+    </dl>
+</div>
+<a *ngIf="nonTerm" class="btn btn-default" routerLink="/englishTerm/{{nonTerm.termEnglishId}}">Back To English Term</a>

@@ -1,0 +1,48 @@
+<h2 *ngIf="currentTerm" align="center"> Add Definitions To - {{ currentTerm.wordNonEnglish }}</h2>
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Add definition</h3>
+            <p>Enter data, and click/tap the Save button</p>
+        </div>
+        <div class="panel-body">
+            <form name="f" (ngSubmit)='definitionSave(f)' #f='ngForm'>
+                <div class="form-group">
+                    <label class="control-label" for="authorName">Author name:</label>
+                    <input class="form-control" type="text" id="authorName" name="authorName"
+                        [(ngModel)]="defToAdd.authorName" required minlength="5" maxlength="30" #authorName="ngModel"
+                        autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="definition">Definition:</label>
+                    <textarea class="form-control" id="definition" name="definition" [(ngModel)]="defToAdd.definition"
+                        required minlength="20">
+                        </textarea>
+                </div>
+
+                <button class="btn btn-primary" type="submit" [disabled]="!f.form.valid">Save</button>&nbsp;
+            </form>
+
+            <a routerLink="/home" class="btn btn-default">Back to List</a>
+            <hr>
+            <h4>Existing Definition(s)</h4>
+            <div *ngFor="let d of currentTerm.definitions; let i = index">
+                <hr>
+                <h5><strong>Definition {{ i + 1 }}</strong> </h5>
+                <dt>Author</dt>
+                <dd>{{ d.authorName }}</dd>
+                <dt>Date Created</dt>
+                <dd>{{ d.dateCreated }}</dd>
+                <br />
+                <dt>Defintion</dt>
+                <dd>{{ d.definition }}</dd>
+                <br />
+                <dt>Likes</dt>
+                <dd><button type="button" class="btn btn-success" (click)="likeClick(d._id)">Like
+                        <strong>{{d.likes}}</strong></button>
+                </dd>
+            </div>
+        </div>
+    </div>
+</div>
