@@ -10,4 +10,4 @@ The general functionality of the user app includes:
 - Add a new term, English, or in another language (including its first or initial definition)
 - For an existing term (English or other), add another definition/data
 
-Heroku URL: https://rocky-springs-91991.herokuapp.com/
+!(Heroku)[https://rocky-springs-91991.herokuapp.com/]
